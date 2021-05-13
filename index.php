@@ -8,11 +8,11 @@ require_once("vendor/autoload.php");
 
 $f3 = Base :: instance();
 
-$f3 -> route('GET /', function (){
+$f3 -> route('GET /', function ($f3){
+    $f3->set('flavors', getFlavors());
+
     $view = new Template();
     echo $view -> render("views/home.html");
-
-
 });
 
 //Run fat free
