@@ -5,6 +5,7 @@ error_reporting(E_ALL);
 session_start();
 
 require_once("vendor/autoload.php");
+require_once ("data-layer.php");
 
 $f3 = Base :: instance();
 
@@ -13,6 +14,8 @@ $f3 -> route('GET /', function ($f3){
 
     $view = new Template();
     echo $view -> render("views/home.html");
+
+
 });
 
 //Run fat free
