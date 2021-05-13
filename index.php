@@ -16,7 +16,7 @@ $f3 -> route('GET|POST /', function ($f3){
     $f3->set('name', "");
 
     if ($_SERVER['REQUEST_METHOD']  == 'POST') {
-        //var_dump($_POST);
+        var_dump($_POST);
 
         if (validName($_POST['name'])) { //if name is valid
             $f3->set('name', $_POST['name']); //save post name to f3
@@ -25,6 +25,7 @@ $f3 -> route('GET|POST /', function ($f3){
         }
 
         if (!empty($_POST['flavors'])) { //if flavors array is not empty, reroute
+            $f3->set('chosenFlavors', $_POST['flavors[]']);
             header('location: summary');
         }
         //if flavors array is empty
@@ -33,6 +34,14 @@ $f3 -> route('GET|POST /', function ($f3){
 
     $view = new Template();
     echo $view -> render("views/home.html");
+});
+
+$f3 -> route('GET|POST /summary', function ($f3){
+    //initialize variables
+
+
+    $view = new Template();
+    echo $view -> render("views/summary.html");
 });
 
 //Run fat free
