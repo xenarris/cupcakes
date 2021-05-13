@@ -14,7 +14,7 @@ $f3 -> route('GET|POST /', function ($f3){
     //initialize variables
     $f3->set('flavors', getFlavors()); //get from model into view
     //$f3->set('name', "");
-    var_dump($_POST);
+    //var_dump($_POST);
 
     if ($_SERVER['REQUEST_METHOD']  == 'POST') {
 
@@ -36,6 +36,7 @@ $f3 -> route('GET|POST /', function ($f3){
         }
 
         if (validName($_POST['name']) && !empty(validName($_POST['name']))) {
+            $_SESSION['numberOfCupcakes'] = count($_SESSION['chosenFlavors']);
             header('location: summary');
         }
 
@@ -46,9 +47,10 @@ $f3 -> route('GET|POST /', function ($f3){
 
 });
 
-$f3 -> route('GET /summary', function (){
+$f3 -> route('GET /summary', function ($f3){
     //initialize variables
-    var_dump($_SESSION);
+    //var_dump($_SESSION);
+    $f3->set('price', $_SESSION["numberOfCupcakes"] * 3.50);
 
     $view = new Template();
     echo $view -> render("views/summary.html");
