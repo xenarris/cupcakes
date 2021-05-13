@@ -15,7 +15,10 @@
     <input type="text" id="name" placeholder="Please input your name.">
   </label>
   <br>
-  <br>
+  <check if="{{ isset(@errors['name']) }}">
+    <span class="err">{{ @errors['name'] }}</span>
+  </check>
+  <br><br>
 
   <label>Cupcake Flavors: </label>
   <br>
@@ -23,6 +26,10 @@
     <label><input type="checkbox" name="flavors[]" value="{{ @flavor }}"
     > {{ ucfirst(@flavor) }}</label><br>
   </repeat>
+  <check if="{{ isset(@errors['flavs']) }}">
+    <span class="err">{{ @errors['flavs'] }}</span>
+  </check>
+  <br><br>
 
   <input type="submit" value="Order">
 </form>
