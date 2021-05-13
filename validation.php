@@ -1,9 +1,9 @@
 <?php
 
-function validName($name)
+function validName($name): bool
 {
-    if ($name == "") {
-        return false;
+    if ($name != "" || $name != null) {
+        return true;
     }
-    return true;
+    return false;
 }

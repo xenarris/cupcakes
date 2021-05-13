@@ -12,33 +12,43 @@ $f3 = Base :: instance();
 
 $f3 -> route('GET|POST /', function ($f3){
     //initialize variables
-    $f3->set('flavors', getFlavors());
-    $f3->set('name', "");
+    $f3->set('flavors', getFlavors()); //get from model into view
+    //$f3->set('name', "");
+    var_dump($_POST);
 
     if ($_SERVER['REQUEST_METHOD']  == 'POST') {
-        var_dump($_POST);
 
         if (validName($_POST['name'])) { //if name is valid
             $f3->set('name', $_POST['name']); //save post name to f3
+            $_SESSION['name'] = $_POST['name'];
+
         } else {
             $f3->set('errors[name]', 'Name cannot be empty');
         }
 
         if (!empty($_POST['flavors'])) { //if flavors array is not empty, reroute
             $f3->set('chosenFlavors', $_POST['flavors[]']);
+            $_SESSION['chosenFlavors'] = $_POST['flavors'];
+
+        } else {
+            //if flavors array is empty
+            $f3->set('errors[flavs]', 'Please select a cupcake flavor');
+        }
+
+        if (validName($_POST['name']) && !empty(validName($_POST['name']))) {
             header('location: summary');
         }
-        //if flavors array is empty
-        $f3->set('errors[flavs]', 'Please select a cupcake flavor');
+
     }
 
     $view = new Template();
     echo $view -> render("views/home.html");
+
 });
 
-$f3 -> route('GET|POST /summary', function ($f3){
+$f3 -> route('GET /summary', function (){
     //initialize variables
-
+    var_dump($_SESSION);
 
     $view = new Template();
     echo $view -> render("views/summary.html");
